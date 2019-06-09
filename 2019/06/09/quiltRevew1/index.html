@@ -88,14 +88,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="/tags/index.html">
+<meta name="description" content="被子时间线2019.6.6 （周四晚）根据页面内容/功能 分析内容及结构，新建数据库的表及字段 写SQL语句时需要注意  创建数据库 （CREATE DATABASE XXX ） 必须标明使用数据库（ USE XXX ） 先判断原先是否存在这张表，存在的话需要删除。（ DROP TABLE IF EXISTS XXX ） 写个COMMIT对功能进行说明。。 主键最好单独写出 （PRIMARY KE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="quiltRevew1">
+<meta property="og:url" content="/2019/06/09/quiltRevew1/index.html">
 <meta property="og:site_name" content="Cheers">
+<meta property="og:description" content="被子时间线2019.6.6 （周四晚）根据页面内容/功能 分析内容及结构，新建数据库的表及字段 写SQL语句时需要注意  创建数据库 （CREATE DATABASE XXX ） 必须标明使用数据库（ USE XXX ） 先判断原先是否存在这张表，存在的话需要删除。（ DROP TABLE IF EXISTS XXX ） 写个COMMIT对功能进行说明。。 主键最好单独写出 （PRIMARY KE">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-04T13:10:51.835Z">
+<meta property="og:updated_time" content="2019-06-09T05:58:04.466Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
+<meta name="twitter:title" content="quiltRevew1">
+<meta name="twitter:description" content="被子时间线2019.6.6 （周四晚）根据页面内容/功能 分析内容及结构，新建数据库的表及字段 写SQL语句时需要注意  创建数据库 （CREATE DATABASE XXX ） 必须标明使用数据库（ USE XXX ） 先判断原先是否存在这张表，存在的话需要删除。（ DROP TABLE IF EXISTS XXX ） 写个COMMIT对功能进行说明。。 主键最好单独写出 （PRIMARY KE">
 
 
 
@@ -125,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="/tags/">
+  <link rel="canonical" href="/2019/06/09/quiltRevew1/">
 
 
 
 
 
-  <title>标签 | Cheers</title>
+  <title>quiltRevew1 | Cheers</title>
   
 
 
@@ -256,40 +259,149 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="/2019/06/09/quiltRevew1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fish">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cheers">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">标签</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 2 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/blog/" style="font-size: 12px; color: #ccc">blog</a> <a href="/tags/first/" style="font-size: 12px; color: #ccc">first</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">quiltRevew1</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-09T13:09:55+08:00">
+                2019-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="被子时间线"><a href="#被子时间线" class="headerlink" title="被子时间线"></a>被子时间线</h2><h2 id="2019-6-6-（周四晚）"><a href="#2019-6-6-（周四晚）" class="headerlink" title="2019.6.6 （周四晚）"></a>2019.6.6 （周四晚）</h2><p>根据页面内容/功能 分析内容及结构，新建数据库的表及字段</p>
+<p>写SQL语句时需要注意</p>
+<ol>
+<li>创建数据库 （CREATE DATABASE XXX ）</li>
+<li>必须标明使用数据库（ USE XXX ）</li>
+<li>先判断原先是否存在这张表，存在的话需要删除。（ DROP TABLE IF EXISTS <code>XXX</code> ）</li>
+<li>写个COMMIT对功能进行说明。。</li>
+<li>主键最好单独写出 （PRIMARY KEY （id））</li>
+<li>显式的指定一下编码格式 （ENGINE=InnoDB DEFAULT CHARSET=utf8 ）</li>
+<li>哦对了 很重要的一点。记住不写注释会被打死</li>
+</ol>
+<h2 id="2019-6-7（周五）-今天是端午节鸭"><a href="#2019-6-7（周五）-今天是端午节鸭" class="headerlink" title="2019.6.7（周五） 今天是端午节鸭"></a>2019.6.7（周五） 今天是端午节鸭</h2><p>第二天干啥了呢？我想想。。</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/04/my-first-blog/" rel="next" title="my first blog">
+                <i class="fa fa-chevron-left"></i> my first blog
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -298,6 +410,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -318,8 +434,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -398,6 +523,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#被子时间线"><span class="nav-number">1.</span> <span class="nav-text">被子时间线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2019-6-6-（周四晚）"><span class="nav-number">2.</span> <span class="nav-text">2019.6.6 （周四晚）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2019-6-7（周五）-今天是端午节鸭"><span class="nav-number">3.</span> <span class="nav-text">2019.6.7（周五） 今天是端午节鸭</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
