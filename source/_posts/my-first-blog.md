@@ -9,13 +9,16 @@ categories:
 ---
 
 ## this is a test
+## but, it is my first .
 
-### 这虽然是一个test
++ 改了又改的the first 呀
 
-### 但是 它是一个有内涵的test
++ 写个希望以后能激励自己的话吧
 
-放一个最喜欢的句子吧
+   ***how to confront the uncentainty***
 
-我见众生皆草木 唯你是青山。
+   ***more practise.***
 
-##### 在此特别鸣谢某位大佬给了这个博客生命hhh
+----
+
++ and  *鸣谢大佬*
