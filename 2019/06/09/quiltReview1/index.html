@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="helloworld">
+  <meta name="keywords" content="quilt,">
 
 
 
@@ -89,13 +89,14 @@
 
 
 <meta name="description" content="被子时间线2019.6.6 （周四晚）根据页面内容/功能 分析内容及结构，新建数据库的表及字段 写SQL语句时需要注意  创建数据库 （CREATE DATABASE XXX ） 必须标明使用数据库（ USE XXX ） 先判断原先是否存在这张表，存在的话需要删除。（ DROP TABLE IF EXISTS XXX ） 写个COMMIT对功能进行说明。。 主键最好单独写出 （PRIMARY KE">
+<meta name="keywords" content="quilt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="quiltReview1">
 <meta property="og:url" content="/2019/06/09/quiltReview1/index.html">
 <meta property="og:site_name" content="Cheers">
 <meta property="og:description" content="被子时间线2019.6.6 （周四晚）根据页面内容/功能 分析内容及结构，新建数据库的表及字段 写SQL语句时需要注意  创建数据库 （CREATE DATABASE XXX ） 必须标明使用数据库（ USE XXX ） 先判断原先是否存在这张表，存在的话需要删除。（ DROP TABLE IF EXISTS XXX ） 写个COMMIT对功能进行说明。。 主键最好单独写出 （PRIMARY KE">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-21T02:07:45.273Z">
+<meta property="og:updated_time" content="2019-06-21T03:08:15.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="quiltReview1">
 <meta name="twitter:description" content="被子时间线2019.6.6 （周四晚）根据页面内容/功能 分析内容及结构，新建数据库的表及字段 写SQL语句时需要注意  创建数据库 （CREATE DATABASE XXX ） 必须标明使用数据库（ USE XXX ） 先判断原先是否存在这张表，存在的话需要删除。（ DROP TABLE IF EXISTS XXX ） 写个COMMIT对功能进行说明。。 主键最好单独写出 （PRIMARY KE">
@@ -353,11 +354,11 @@
 <h2 id="2019-6-7（周五）-今天是端午节鸭"><a href="#2019-6-7（周五）-今天是端午节鸭" class="headerlink" title="2019.6.7（周五） 今天是端午节鸭"></a>2019.6.7（周五） 今天是端午节鸭</h2><p>（这其实是2019/6/19 写的  .. 严重托更 so sorry..）</p>
 <ol>
 <li>新建一个maven项目  （后缀是webapp的）</li>
-<li>然后根据maven的规则建立目录结构（src+test）<blockquote>
+<li>然后根据maven的规则建立目录结构（src+test）</li>
+</ol>
+<blockquote>
 <p>src</p>
 </blockquote>
-</li>
-</ol>
 <blockquote>
 <blockquote>
 <p>main</p>
@@ -444,8 +445,8 @@
 </li>
 <li><p>最后修改前台页面的相关数据。</p>
 <ul>
-<li>前台ajax 的URL，指向的是修改的controllerAPI</li>
-<li>datatype要写json。</li>
+<li>前台 ajax 的URL，指向的是修改的controllerAPI</li>
+<li>datatype 要写 json。</li>
 </ul>
 </li>
 </ol>
@@ -485,11 +486,12 @@
 </li>
 </ol>
 <p>（注意系统实际运行的路径，和自己所编写的路径，是不太一样的，这里要将图片根据运行路径存储，才能访问到。如果直接按路径保存，是访问不到的。 getRealPath()的意义。）</p>
-<p>3.第三步是指定这个图片保存到服务器的名字。（UUID加它原来的名字）</p>
+<ol start="3">
+<li><p>第三步是指定这个图片保存到服务器的名字。（UUID加它原来的名字）</p>
 <blockquote>
 <p>String fileName = UUID.randomUUID() + “_” + file.getOriginalFilename();</p>
 </blockquote>
-<ol start="4">
+</li>
 <li><p>第四步，根据它这个realPath,和新的fileName,创建一个新的文件对象saveFile。</p>
 </li>
 <li><p>第五步判判断一下这个saveFile的父文件夹是否存在，不存在的话要创建mkdirs().</p>
@@ -525,6 +527,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/quilt/" rel="tag"># quilt</a>
+          
+        </div>
+      
 
       
       
@@ -543,6 +551,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/21/quiltReview2/" rel="prev" title="quiltReview2">
+                quiltReview2 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -621,7 +633,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -643,7 +655,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
