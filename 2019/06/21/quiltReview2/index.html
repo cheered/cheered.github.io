@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="quilt,">
+  <meta name="keywords" content="quilt review,">
 
 
 
@@ -89,14 +89,14 @@
 
 
 <meta name="description" content="第三个功能-关于文章标签 先在tagService里写接口，基本的增删改，查询单个，查询所有。  （根据需求在DAO层加一个查询所有标签的方法，返回一个list）   然后去tagServiceImpl里实现，对于传入对象的，在controller里面注入更改的值，对直接传入具体属性的，在service层注入。然后返回用dao对象调用dao层方法的结果。  controller层。  首先渲染页面">
-<meta name="keywords" content="quilt">
+<meta name="keywords" content="quilt review">
 <meta property="og:type" content="article">
 <meta property="og:title" content="quiltReview2">
 <meta property="og:url" content="/2019/06/21/quiltReview2/index.html">
 <meta property="og:site_name" content="Cheers">
 <meta property="og:description" content="第三个功能-关于文章标签 先在tagService里写接口，基本的增删改，查询单个，查询所有。  （根据需求在DAO层加一个查询所有标签的方法，返回一个list）   然后去tagServiceImpl里实现，对于传入对象的，在controller里面注入更改的值，对直接传入具体属性的，在service层注入。然后返回用dao对象调用dao层方法的结果。  controller层。  首先渲染页面">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-21T03:07:07.312Z">
+<meta property="og:updated_time" content="2019-06-22T16:00:28.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="quiltReview2">
 <meta name="twitter:description" content="第三个功能-关于文章标签 先在tagService里写接口，基本的增删改，查询单个，查询所有。  （根据需求在DAO层加一个查询所有标签的方法，返回一个list）   然后去tagServiceImpl里实现，对于传入对象的，在controller里面注入更改的值，对直接传入具体属性的，在service层注入。然后返回用dao对象调用dao层方法的结果。  controller层。  首先渲染页面">
@@ -371,13 +371,24 @@
 <li><p>这里对标签的显示需要用到jstl的循环标签。对页面上所有显示的需要从数据库里取的值，都需要用el表达式书写，即${}。</p>
 </li>
 <li><p>第二个需要注意的是前台关于RESTFUL风格，URL的书写规范</p>
-<blockquote>
-<p>var str = “&lt;%=request.getContextPath()%&gt;/admin/article/tag/edit_tag?id=”+ $(this).attr(‘data-index’);</p>
-</blockquote>
-</li>
-<li><p>(这个id 就是特定格式)</p>
 </li>
 </ul>
+<p><code>var str = &quot;&lt;%=request.getContextPath()%&gt;/admin/article/tag/edit_tag?id=&quot;+ $(this).attr(&#39;data-index&#39;);</code></p>
+<ul>
+<li>(这个id 就是特定格式)</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="第四个功能-文章分类"><a href="#第四个功能-文章分类" class="headerlink" title="第四个功能 文章分类"></a>第四个功能 文章分类</h2><ul>
+<li><strong><em>本功能理解上的一个重点是：在数据库里增加一个PID的字段，默认为0时，无父节点，如果是子节点，其PID的值是父节点ID的值。</em></strong></li>
+</ul>
+<ol>
+<li><p>在service层，页面渲染时需要用到获取所有父标签和子标签的方法，添加标签涉及到插入功能，编辑功能类似于标签，还需要有个获取特定分类的方法，最后删除功能，删除子分类时正常删除即可，删除父分类，要删除它下面的所有子分类。（所以还需要在dao层加一个删除所以子标签的接口 【删除所有PID=ID的记录】）</p>
+</li>
+<li><p>其他的和标签一模一样，不写了。</p>
+</li>
+<li><p>这篇儿到此为止。 bye</p>
 </li>
 </ol>
 
@@ -397,7 +408,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/quilt/" rel="tag"># quilt</a>
+            <a href="/tags/quilt-review/" rel="tag"># quilt review</a>
           
         </div>
       
@@ -523,7 +534,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -573,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三个功能-关于文章标签"><span class="nav-number">1.</span> <span class="nav-text">第三个功能-关于文章标签</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三个功能-关于文章标签"><span class="nav-number">1.</span> <span class="nav-text">第三个功能-关于文章标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四个功能-文章分类"><span class="nav-number">2.</span> <span class="nav-text">第四个功能 文章分类</span></a></li></ol></div>
             
 
           </div>
