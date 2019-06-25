@@ -28,6 +28,7 @@ tags: quilt
 
 1. 新建一个maven项目  （后缀是webapp的）
 2. 然后根据maven的规则建立目录结构（src+test）
+
 >src
 
 >>main
@@ -88,8 +89,8 @@ tags: quilt
 
 4. 最后修改前台页面的相关数据。
 
-   - 前台ajax 的URL，指向的是修改的controllerAPI
-   - datatype要写json。
+   - 前台 ajax 的URL，指向的是修改的controllerAPI
+   - datatype 要写 json。
 
 ---
 
@@ -121,7 +122,7 @@ tags: quilt
 
       （注意系统实际运行的路径，和自己所编写的路径，是不太一样的，这里要将图片根据运行路径存储，才能访问到。如果直接按路径保存，是访问不到的。 getRealPath()的意义。）
 
-      3.第三步是指定这个图片保存到服务器的名字。（UUID加它原来的名字）
+      3. 第三步是指定这个图片保存到服务器的名字。（UUID加它原来的名字）
       >String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
       4. 第四步，根据它这个realPath,和新的fileName,创建一个新的文件对象saveFile。
