@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="Cheers">
 <meta property="og:description" content="第五个功能 写文章页面 这个页面，。。写的时候。。有些难度来着  难点主要是关联查询。要将这篇文章所勾选的标签和分类一并提交至数据库（即批量插入标签和分类，故mapper部分还涉及到动态SQL语句），这就涉及到了一对多的问题。  为此，首先在建表阶段，要建立一个文章标签关联表和文章分类关联表。 在各自关联对象的DAO层，需要添加一个批量插入的接口。然后去mapper文件里使用动态SQL语句（也就是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-24T11:44:43.760Z">
+<meta property="og:updated_time" content="2019-06-25T09:04:58.586Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="qulitReview3">
 <meta name="twitter:description" content="第五个功能 写文章页面 这个页面，。。写的时候。。有些难度来着  难点主要是关联查询。要将这篇文章所勾选的标签和分类一并提交至数据库（即批量插入标签和分类，故mapper部分还涉及到动态SQL语句），这就涉及到了一对多的问题。  为此，首先在建表阶段，要建立一个文章标签关联表和文章分类关联表。 在各自关联对象的DAO层，需要添加一个批量插入的接口。然后去mapper文件里使用动态SQL语句（也就是">
@@ -392,6 +392,36 @@
 </li>
 <li><p>在controller层，首先建立一个文章list得到所有文章，然后再建立一个包装对象的List,遍历文章的list,为每一个文章注入它所对应的标签和分类（调用service层根据文章ID获取分类和标签的方法，获得所有对应的标签和分类存到一个组里面，然后新建一个包装对象来接受，接受后将此对象添加到list里面），最后通过model，把包装对象的list渲染到前台页面。</p>
 </li>
+<li><p>前台页面渲染时，关于时间的显示，需要按照更新时间倒序排列。<br><code>&lt;fmt:formatDate value=&quot;${articleListDto.article.createTime}&quot; pattern=&quot;yyyy-MM-dd HH:mm:ss&quot; /&gt;</code></p>
+</li>
+<li><p>删除功能，需要先删除和文章，分类的关联，然后删除此文章。</p>
+</li>
+<li><p>修改功能，点击修改按钮，进入一个类似于写文章的页面，但是需要渲染，将本文章原有信息渲染成默认值。这里的难点还是对于标签和分类的渲染。先得到用户选择的所有标签和分类的list，然后在前台通过script代码，得到每一个标签的ID。</p>
+</li>
+</ol>
+<p>`<script type="text/javascript"></p>
+<pre><code>var tagList = new Array();
+var categoryList = new Array();
+
+&lt;c:forEach items=&quot;${tags}&quot; var=&quot;tag&quot;&gt;
+     tagList.push(${tag.id});
+&lt;/c:forEach&gt;
+
+&lt;C:forEach items=&quot;${categories}&quot; var=&quot;category&quot;&gt;
+     categoryList.push(${category.id});
+&lt;/C:forEach&gt;
+
+for (var i = 0; i &lt; tagList.length ; i++) {
+
+    $(&apos;input[value=&apos; + tagList[i] + &apos;][name=&quot;articleTagId&quot;]&apos;).attr(&quot;checked&quot;,&quot;checked&quot;);
+}
+
+for (var i = 0; i &lt; categoryList.length ; i++) {
+
+    $(&apos;input[value=&apos; + categoryList[i] + &apos;][name=&quot;articleCategoryId&quot;]&apos;).attr(&quot;checked&quot;,&quot;checked&quot;);
+}</code></pre><p></script>`</p>
+<ol start="9">
+<li>修改方法的具体实现类似于写文章的功能。</li>
 </ol>
 
       
