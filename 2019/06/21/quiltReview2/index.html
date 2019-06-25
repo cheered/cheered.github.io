@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="Cheers">
 <meta property="og:description" content="第三个功能-关于文章标签 先在tagService里写接口，基本的增删改，查询单个，查询所有。  （根据需求在DAO层加一个查询所有标签的方法，返回一个list）   然后去tagServiceImpl里实现，对于传入对象的，在controller里面注入更改的值，对直接传入具体属性的，在service层注入。然后返回用dao对象调用dao层方法的结果。  controller层。  首先渲染页面">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-22T16:00:28.690Z">
+<meta property="og:updated_time" content="2019-06-23T10:37:55.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="quiltReview2">
 <meta name="twitter:description" content="第三个功能-关于文章标签 先在tagService里写接口，基本的增删改，查询单个，查询所有。  （根据需求在DAO层加一个查询所有标签的方法，返回一个list）   然后去tagServiceImpl里实现，对于传入对象的，在controller里面注入更改的值，对直接传入具体属性的，在service层注入。然后返回用dao对象调用dao层方法的结果。  controller层。  首先渲染页面">
@@ -390,6 +390,11 @@
 </li>
 <li><p>这篇儿到此为止。 bye</p>
 </li>
+<li><p>对不起打脸了，我又回来了，这个功能还有一个需要注意的地方：</p>
+<ul>
+<li>关于前台页面，父分类正常循环输出，子分类循环输出时需要做一个判断，id=pid.</li>
+</ul>
+</li>
 </ol>
 
       
@@ -512,7 +517,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
