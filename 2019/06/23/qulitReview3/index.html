@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="Cheers">
 <meta property="og:description" content="第五个功能 写文章页面 这个页面，。。写的时候。。有些难度来着  难点主要是关联查询。要将这篇文章所勾选的标签和分类一并提交至数据库（即批量插入标签和分类，故mapper部分还涉及到动态SQL语句），这就涉及到了一对多的问题。  为此，首先在建表阶段，要建立一个文章标签关联表和文章分类关联表。 在各自关联对象的DAO层，需要添加一个批量插入的接口。然后去mapper文件里使用动态SQL语句（也就是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-25T09:04:58.586Z">
+<meta property="og:updated_time" content="2019-06-28T08:25:03.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="qulitReview3">
 <meta name="twitter:description" content="第五个功能 写文章页面 这个页面，。。写的时候。。有些难度来着  难点主要是关联查询。要将这篇文章所勾选的标签和分类一并提交至数据库（即批量插入标签和分类，故mapper部分还涉及到动态SQL语句），这就涉及到了一对多的问题。  为此，首先在建表阶段，要建立一个文章标签关联表和文章分类关联表。 在各自关联对象的DAO层，需要添加一个批量插入的接口。然后去mapper文件里使用动态SQL语句（也就是">
@@ -399,7 +399,7 @@
 <li><p>修改功能，点击修改按钮，进入一个类似于写文章的页面，但是需要渲染，将本文章原有信息渲染成默认值。这里的难点还是对于标签和分类的渲染。先得到用户选择的所有标签和分类的list，然后在前台通过script代码，得到每一个标签的ID。</p>
 </li>
 </ol>
-<p>`<script type="text/javascript"></p>
+<p>`</p>
 <pre><code>var tagList = new Array();
 var categoryList = new Array();
 
@@ -419,10 +419,24 @@ for (var i = 0; i &lt; tagList.length ; i++) {
 for (var i = 0; i &lt; categoryList.length ; i++) {
 
     $(&apos;input[value=&apos; + categoryList[i] + &apos;][name=&quot;articleCategoryId&quot;]&apos;).attr(&quot;checked&quot;,&quot;checked&quot;);
-}</code></pre><p></script>`</p>
+}</code></pre><p>`</p>
 <ol start="9">
 <li>修改方法的具体实现类似于写文章的功能。</li>
 </ol>
+<hr>
+<h2 id="用户评论及回复"><a href="#用户评论及回复" class="headerlink" title="用户评论及回复"></a>用户评论及回复</h2><ol>
+<li>删除：自定义一个根据PID删除的接口，即如果有子节点（即回复），删除时先把其下的回复删除。先调用根据PID删除的方法，然后调用原本的删除方法。</li>
+</ol>
+<hr>
+<h2 id="渲染后台主页"><a href="#渲染后台主页" class="headerlink" title="渲染后台主页"></a>渲染后台主页</h2><ol>
+<li><p>首先关于查询各种总数以及最新八条记录，尽量重新定义接口，不要让数据库全查出来再去取。</p>
+</li>
+<li><p>关于显示最近八条记录，需要在SQL语句中实现</p>
+</li>
+</ol>
+<p><code>select * from aaa order by create_time desc(降序排列) limit 8</code></p>
+<hr>
+<p>后记，于6月27日晚，后台功能基本完成<br>成长很多，继续努力哈哈。</p>
 
       
     </div>
@@ -612,7 +626,7 @@ for (var i = 0; i &lt; categoryList.length ; i++) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第五个功能-写文章页面"><span class="nav-number">1.</span> <span class="nav-text">第五个功能 写文章页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六个功能-所有文章页面"><span class="nav-number">2.</span> <span class="nav-text">第六个功能 所有文章页面</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第五个功能-写文章页面"><span class="nav-number">1.</span> <span class="nav-text">第五个功能 写文章页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六个功能-所有文章页面"><span class="nav-number">2.</span> <span class="nav-text">第六个功能 所有文章页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户评论及回复"><span class="nav-number">3.</span> <span class="nav-text">用户评论及回复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染后台主页"><span class="nav-number">4.</span> <span class="nav-text">渲染后台主页</span></a></li></ol></div>
             
 
           </div>
