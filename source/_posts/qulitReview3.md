@@ -56,3 +56,58 @@ tags: quilt
    - 在dto包里面建立一个包含了文章对象，标签列表，分类列表的包装类。（因为一个文章对应多个标签或者分类）
    
 5. 在controller层，首先建立一个文章list得到所有文章，然后再建立一个包装对象的List,遍历文章的list,为每一个文章注入它所对应的标签和分类（调用service层根据文章ID获取分类和标签的方法，获得所有对应的标签和分类存到一个组里面，然后新建一个包装对象来接受，接受后将此对象添加到list里面），最后通过model，把包装对象的list渲染到前台页面。
+
+6. 前台页面渲染时，关于时间的显示，需要按照更新时间倒序排列。
+`<fmt:formatDate value="${articleListDto.article.createTime}" pattern="yyyy-MM-dd HH:mm:ss" />`
+
+7. 删除功能，需要先删除和文章，分类的关联，然后删除此文章。
+
+8. 修改功能，点击修改按钮，进入一个类似于写文章的页面，但是需要渲染，将本文章原有信息渲染成默认值。这里的难点还是对于标签和分类的渲染。先得到用户选择的所有标签和分类的list，然后在前台通过script代码，得到每一个标签的ID。
+
+`
+   
+    var tagList = new Array();
+    var categoryList = new Array();
+
+    <c:forEach items="${tags}" var="tag">
+         tagList.push(${tag.id});
+    </c:forEach>
+
+    <C:forEach items="${categories}" var="category">
+         categoryList.push(${category.id});
+    </C:forEach>
+
+    for (var i = 0; i < tagList.length ; i++) {
+
+        $('input[value=' + tagList[i] + '][name="articleTagId"]').attr("checked","checked");
+    }
+
+    for (var i = 0; i < categoryList.length ; i++) {
+
+        $('input[value=' + categoryList[i] + '][name="articleCategoryId"]').attr("checked","checked");
+    }
+`
+
+9. 修改方法的具体实现类似于写文章的功能。
+
+---
+
+## 用户评论及回复
+
+1. 删除：自定义一个根据PID删除的接口，即如果有子节点（即回复），删除时先把其下的回复删除。先调用根据PID删除的方法，然后调用原本的删除方法。
+
+---
+
+## 渲染后台主页
+
+1. 首先关于查询各种总数以及最新八条记录，尽量重新定义接口，不要让数据库全查出来再去取。
+
+2. 关于显示最近八条记录，需要在SQL语句中实现
+
+`select * from aaa order by create_time desc(降序排列) limit 8 `
+
+
+---
+
+后记，于6月27日晚，后台功能基本完成
+成长很多，继续努力哈哈。
