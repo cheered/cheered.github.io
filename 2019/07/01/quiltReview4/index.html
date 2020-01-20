@@ -88,14 +88,17 @@
 
 
 
+<meta name="description" content="功能性的模块基本完成，接下来就是一些页面的渲染对于页面的渲染，主要就是对JSTL中&amp;lt;c:foreach&amp;gt; 和 &amp;lt;c:if&amp;gt; 等一些循环控制语句标签的使用。以及在指定位置插入特定数据。12&amp;lt;c:forEach items=&amp;quot;$&amp;#123;commentList&amp;#125;&amp;quot; var=&amp;quot;comment&amp;quot;&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="quiltReview4">
 <meta property="og:url" content="/2019/07/01/quiltReview4/index.html">
 <meta property="og:site_name" content="Cheers">
+<meta property="og:description" content="功能性的模块基本完成，接下来就是一些页面的渲染对于页面的渲染，主要就是对JSTL中&amp;lt;c:foreach&amp;gt; 和 &amp;lt;c:if&amp;gt; 等一些循环控制语句标签的使用。以及在指定位置插入特定数据。12&amp;lt;c:forEach items=&amp;quot;$&amp;#123;commentList&amp;#125;&amp;quot; var=&amp;quot;comment&amp;quot;&amp;gt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-01T06:44:37.639Z">
+<meta property="og:updated_time" content="2020-01-20T09:51:21.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="quiltReview4">
+<meta name="twitter:description" content="功能性的模块基本完成，接下来就是一些页面的渲染对于页面的渲染，主要就是对JSTL中&amp;lt;c:foreach&amp;gt; 和 &amp;lt;c:if&amp;gt; 等一些循环控制语句标签的使用。以及在指定位置插入特定数据。12&amp;lt;c:forEach items=&amp;quot;$&amp;#123;commentList&amp;#125;&amp;quot; var=&amp;quot;comment&amp;quot;&amp;gt;">
 
 
 
@@ -335,7 +338,19 @@
       
 
       
-        
+        <h1 id="功能性的模块基本完成，接下来就是一些页面的渲染"><a href="#功能性的模块基本完成，接下来就是一些页面的渲染" class="headerlink" title="功能性的模块基本完成，接下来就是一些页面的渲染"></a>功能性的模块基本完成，接下来就是一些页面的渲染</h1><h3 id="对于页面的渲染，主要就是对JSTL中-lt-c-foreach-gt-和-lt-c-if-gt-等一些循环控制语句标签的使用。以及在指定位置插入特定数据。"><a href="#对于页面的渲染，主要就是对JSTL中-lt-c-foreach-gt-和-lt-c-if-gt-等一些循环控制语句标签的使用。以及在指定位置插入特定数据。" class="headerlink" title="对于页面的渲染，主要就是对JSTL中&lt;c:foreach&gt; 和 &lt;c:if&gt; 等一些循环控制语句标签的使用。以及在指定位置插入特定数据。"></a>对于页面的渲染，主要就是对JSTL中&lt;c:foreach&gt; 和 &lt;c:if&gt; 等一些循环控制语句标签的使用。以及在指定位置插入特定数据。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:forEach items=&quot;$&#123;commentList&#125;&quot; var=&quot;comment&quot;&gt;</span><br><span class="line">            &lt;c:if test=&quot;$&#123;comment.commentPid == 0&#125;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ajax-的使用"><a href="#ajax-的使用" class="headerlink" title="ajax 的使用"></a>ajax 的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">                    url:&apos;&lt;%=request.getContextPath()%&gt;/admin/comment/add&apos;,</span><br><span class="line">                    data: comment,</span><br><span class="line">                    cache: false,</span><br><span class="line">                    dataType: &quot;json&quot;,</span><br><span class="line">                    success: function (data) &#123;</span><br><span class="line">                        if (data.state == 1) &#123;layer.alert(&quot;回复成功&quot;, &#123;icon: 1&#125;);</span><br><span class="line">                        &#125; else&#123;layer.msg(&quot;回复失败&quot;);&#125; &#125;);</span><br><span class="line">                layer.close(index);&#125;&#125;);&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="首页分页功能的实现"><a href="#首页分页功能的实现" class="headerlink" title="首页分页功能的实现"></a>首页分页功能的实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:choose&gt;</span><br><span class="line">  &lt;c:when test=&quot;$&#123;pagedResult.pageNo == 1 &amp;&amp; pagedResult.pages == 1&#125;&quot;&gt;</span><br><span class="line">  &lt;span class=&quot;page-number current&quot;&gt;$&#123;pagedResult.pageNo&#125;&lt;/span&gt;</span><br><span class="line">  &lt;/c:when&gt;</span><br><span class="line"></span><br><span class="line">  &lt;c:when test=&quot;$&#123;pagedResult.pageNo == 1 &amp;&amp; pagedResult.pages &gt;1 &#125;&quot;&gt;</span><br><span class="line">  &lt;span class=&quot;page-number current&quot;&gt;$&#123;pagedResult.pageNo&#125;&lt;/span&gt;&lt;a class=&quot;page-number&quot; href=&quot;&lt;%=request.getContextPath()%&gt;/$&#123;pagedResult.pageNo+1&#125;&quot;&gt; &gt;&gt; &lt;/a&gt;</span><br><span class="line">  &lt;/c:when&gt;</span><br><span class="line"></span><br><span class="line"> &lt;c:when test=&quot;$&#123;pagedResult.pageNo != 1 &amp;&amp; pagedResult.pageNo != pagedResult.pages &#125;&quot;&gt;</span><br><span class="line"> &lt;a class=&quot;page-number&quot; href=&quot;&lt;%=request.getContextPath()%&gt;/$&#123;pagedResult.pageNo-1&#125;&quot;&gt; &lt;&lt; &lt;/a&gt;</span><br><span class="line">  &lt;span class=&quot;page-number current&quot;&gt;$&#123;pagedResult.pageNo&#125;&lt;/span&gt; &lt;a class=&quot;page-number&quot; href=&quot;&lt;%=request.getContextPath()%&gt;/$&#123;pagedResult.pageNo+1&#125;&quot;&gt; &gt;&gt; &lt;/a&gt;</span><br><span class="line"> &lt;/c:when&gt;</span><br><span class="line"></span><br><span class="line">&lt;c:when test=&quot;$&#123;pagedResult.pageNo !=1 &amp;&amp; pagedResult.pageNo == pagedResult.pages&#125;&quot;&gt;</span><br><span class="line">&lt;a class=&quot;page-number&quot; href=&quot;&lt;%=request.getContextPath()%&gt;/$&#123;pagedResult.pageNo-1&#125;&quot;&gt; &lt;&lt; &lt;/a&gt;</span><br><span class="line">&lt;span class=&quot;page-number current&quot;&gt;$&#123;pagedResult.pageNo&#125;&lt;/span&gt;</span><br><span class="line">        &lt;/c:when&gt;</span><br><span class="line">      &lt;/c:choose&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="页面信息的注入"><a href="#页面信息的注入" class="headerlink" title="页面信息的注入"></a>页面信息的注入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/&#123;pageNo&#125;&quot;)</span><br><span class="line">public String getArticlePage(Model model,</span><br><span class="line">                    @PathVariable(&quot;pageNo&quot;)Integer pageNo )&#123;</span><br><span class="line"> List&lt;ArticleWithBLOBsDto&gt; articleWithBLOBsDtoList = </span><br><span class="line">new ArrayList&lt;ArticleWithBLOBsDto&gt;();</span><br><span class="line"> PagedResult&lt;ArticleWithBLOBs&gt; pagedResult =     </span><br><span class="line">articleService.getArticlePage(pageNo,2);</span><br><span class="line"> for (ArticleWithBLOBs articleWithBLOBs : pagedResult.getDataList())</span><br><span class="line">&#123;List&lt;Category&gt; categoryList = </span><br><span class="line">categoryService.getCategoryListByArticleId(articleWithBLOBs.getId());</span><br><span class="line">     List&lt;Tag&gt; tagList = tagService.getTagListByArticleId(articleWithBLOBs.getId());</span><br><span class="line">     ArticleWithBLOBsDto articleWithBLOBsDto = </span><br><span class="line">new ArticleWithBLOBsDto(articleWithBLOBs,tagList,categoryList);</span><br><span class="line">     articleWithBLOBsDtoList.add(articleWithBLOBsDto);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    model.addAttribute(&quot;pagedResult&quot;,pagedResult);</span><br><span class="line">   	model.addAttribute(&quot;articleWithBLOBsDtoList&quot;,articleWithBLOBsDtoList);     		model.addAttribute(&quot;backgroundImage&quot;,&quot;/static/images/index/1555489887530.jpg&quot;);</span><br><span class="line">    model.addAttribute(&quot;slogan&quot;,&quot;- 也许世界上也有五千朵和你一模一样的花，但只有你是我独一无二的玫瑰 -&quot;);</span><br><span class="line">    return &quot;home/index&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="文章详情页标题的提取"><a href="#文章详情页标题的提取" class="headerlink" title="文章详情页标题的提取"></a>文章详情页标题的提取</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public static List&lt;Chapter&gt; handleChapeter(String htmlContent)&#123;</span><br><span class="line">    Document document = Jsoup.parse(htmlContent);</span><br><span class="line">    Elements elements = document.getElementsByTag(&quot;h1&quot;);</span><br><span class="line">    int i=1 ;</span><br><span class="line">    List&lt;Chapter&gt; chapterList = new ArrayList&lt;Chapter&gt;();</span><br><span class="line">    for (Element element : elements)&#123;</span><br><span class="line">        String chapterName = element.text();</span><br><span class="line">        String chapterId = element.attr(&quot;id&quot;);</span><br><span class="line">        Chapter chapter = new Chapter(chapterId,i,chapterName);</span><br><span class="line">        i++;</span><br><span class="line">        chapterList.add(chapter);&#125;</span><br><span class="line">    return chapterList;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关于分页用到了工具类"><a href="#关于分页用到了工具类" class="headerlink" title="关于分页用到了工具类"></a>关于分页用到了工具类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public static &lt;T&gt; PagedResult&lt;T&gt; toPagedResult(List&lt;T&gt; datas) &#123;</span><br><span class="line">    PagedResult&lt;T&gt; result = new PagedResult&lt;T&gt;();</span><br><span class="line">    if (datas instanceof Page) &#123;</span><br><span class="line">        Page page = (Page) datas;</span><br><span class="line">        result.setPageNo(page.getPageNum());</span><br><span class="line">        result.setPageSize(page.getPageSize());</span><br><span class="line">        result.setDataList(page.getResult());</span><br><span class="line">        result.setTotal(page.getTotal());</span><br><span class="line">        result.setPages(page.getPages());&#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        result.setPageNo(1);</span><br><span class="line">        result.setPageSize(datas.size());</span><br><span class="line">        result.setDataList(datas);</span><br><span class="line">        result.setTotal(datas.size());&#125;</span><br><span class="line">    return result;&#125;</span><br><span class="line"></span><br><span class="line">public class PagedResult&lt;T&gt; &#123;</span><br><span class="line">   private List&lt;T&gt; dataList;//数据</span><br><span class="line">   private long pageNo;//当前页</span><br><span class="line">   private long pageSize;//条数</span><br><span class="line">   private long total;//总条数</span><br><span class="line">   private long pages;//总页面数目</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     
@@ -423,8 +438,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -504,6 +528,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#功能性的模块基本完成，接下来就是一些页面的渲染"><span class="nav-number">1.</span> <span class="nav-text">功能性的模块基本完成，接下来就是一些页面的渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对于页面的渲染，主要就是对JSTL中-lt-c-foreach-gt-和-lt-c-if-gt-等一些循环控制语句标签的使用。以及在指定位置插入特定数据。"><span class="nav-number">1.0.1.</span> <span class="nav-text">对于页面的渲染，主要就是对JSTL中&lt;c:foreach&gt; 和 &lt;c:if&gt; 等一些循环控制语句标签的使用。以及在指定位置插入特定数据。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ajax-的使用"><span class="nav-number">1.0.2.</span> <span class="nav-text">ajax 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首页分页功能的实现"><span class="nav-number">1.0.3.</span> <span class="nav-text">首页分页功能的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面信息的注入"><span class="nav-number">1.0.4.</span> <span class="nav-text">页面信息的注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章详情页标题的提取"><span class="nav-number">1.0.5.</span> <span class="nav-text">文章详情页标题的提取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于分页用到了工具类"><span class="nav-number">1.0.6.</span> <span class="nav-text">关于分页用到了工具类</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -517,7 +557,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-snowflake-o"></i>
   </span>
