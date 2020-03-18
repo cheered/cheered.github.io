@@ -2,7 +2,10 @@
 layout: pages
 title: quiltReview2
 date: 2019-06-21 10:32:20
-tags: quilt review
+categories: 
+   - project-quilt
+tags: 
+   - quilt
 ---
 
 ## 第三个功能-关于文章标签

@@ -1,7 +1,10 @@
 ---
 title: quiltReview1
 date: 2019-06-09 13:09:55
-tags: quilt
+tags: 
+   - quilt
+categories: 
+   - project-quilt
 ---
 
 ## 被子时间线

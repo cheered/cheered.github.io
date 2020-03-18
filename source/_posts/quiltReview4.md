@@ -3,6 +3,9 @@ layout: pages
 title: quiltReview4
 date: 2019-07-01 14:44:37
 tags:
+  - quilt
+categories: 
+  - project-quilt
 ---
 
 # 功能性的模块基本完成，接下来就是一些页面的渲染

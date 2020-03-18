@@ -2,12 +2,15 @@
 layout: pages
 title: my_first_diary
 date: 2019-06-22 08:06:52
-tags: diary
+tags: 
+    - diary 
+categories: 
+    - diary
 ---
 
 ## Encounter
 
-(这里是图片...没引用成功...自行想象吧)
+
 
 ---
 

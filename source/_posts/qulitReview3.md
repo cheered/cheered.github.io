@@ -2,7 +2,10 @@
 layout: pages
 title: qulitReview3
 date: 2019-06-23 00:16:08
-tags: quilt
+tags: 
+  - quilt
+categories: 
+  - project-quilt
 ---
 
 ## 第五个功能 写文章页面

@@ -2,10 +2,9 @@
 title: my first blog
 date: 2019-06-04 21:22:51
 tags:
- - blog
- - first
+ - diary
 categories:
- - project 
+ - diary
 ---
 
 ## this is a test
