@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="quilt,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Cheers" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="关于写文章页面的实现和编辑页面的渲染写文章部分的实现写文章部分难点主要是关联查询。 要将这篇文章所勾选的标签和分类一并提交至数据库（即批量插入标签和分类，故mapper部分还涉及到动态SQL语句），这就涉及到了一对多的问题。  为此，首先在建表阶段，要建立一个文章标签关联表和文章分类关联表。  在各自关联对象的DAO层，需要添加一个批量插入的接口。然后去mapper文件里使用动态SQL语句（也就是">
+<meta name="keywords" content="quilt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="被子项目心得">
+<meta property="og:url" content="/2020/01/20/被子项目心得/index.html">
+<meta property="og:site_name" content="Cheers">
+<meta property="og:description" content="关于写文章页面的实现和编辑页面的渲染写文章部分的实现写文章部分难点主要是关联查询。 要将这篇文章所勾选的标签和分类一并提交至数据库（即批量插入标签和分类，故mapper部分还涉及到动态SQL语句），这就涉及到了一对多的问题。  为此，首先在建表阶段，要建立一个文章标签关联表和文章分类关联表。  在各自关联对象的DAO层，需要添加一个批量插入的接口。然后去mapper文件里使用动态SQL语句（也就是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-18T07:00:34.287Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="被子项目心得">
+<meta name="twitter:description" content="关于写文章页面的实现和编辑页面的渲染写文章部分的实现写文章部分难点主要是关联查询。 要将这篇文章所勾选的标签和分类一并提交至数据库（即批量插入标签和分类，故mapper部分还涉及到动态SQL语句），这就涉及到了一对多的问题。  为此，首先在建表阶段，要建立一个文章标签关联表和文章分类关联表。  在各自关联对象的DAO层，需要添加一个批量插入的接口。然后去mapper文件里使用动态SQL语句（也就是">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="/2020/01/20/被子项目心得/">
+
+
+
+
+
+  <title>被子项目心得 | Cheers</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cheers</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="/2020/01/20/被子项目心得/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fish">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cheers">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">被子项目心得</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-20T18:27:37+08:00">
+                2020-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/project-quilt/" itemprop="url" rel="index">
+                    <span itemprop="name">project-quilt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="关于写文章页面的实现和编辑页面的渲染"><a href="#关于写文章页面的实现和编辑页面的渲染" class="headerlink" title="关于写文章页面的实现和编辑页面的渲染"></a>关于写文章页面的实现和编辑页面的渲染</h2><h3 id="写文章部分的实现"><a href="#写文章部分的实现" class="headerlink" title="写文章部分的实现"></a>写文章部分的实现</h3><h3 id="写文章部分难点主要是关联查询。"><a href="#写文章部分难点主要是关联查询。" class="headerlink" title="写文章部分难点主要是关联查询。"></a>写文章部分难点主要是关联查询。</h3><ul>
+<li><p>要将这篇文章所勾选的标签和分类一并提交至数据库（即批量插入标签和分类，故mapper部分还涉及到动态SQL语句），这就涉及到了一对多的问题。</p>
+</li>
+<li><p>为此，首先在建表阶段，要建立一个文章标签关联表和文章分类关联表。</p>
+</li>
+<li><p>在各自关联对象的DAO层，需要添加一个批量插入的接口。然后去mapper文件里使用动态SQL语句（也就是对插入的值进行一个foreach循环）来实现。</p>
+<ul>
+<li>其次，要解决的问题是，提交文章后，按照逻辑来讲应该按照数据库里这个文章的ID，创建关联对象，然后再插入标签和分类。怎么得到这个文章的ID呢？在文章插入的mapper实现方法处添加keyProperty这个属性，用来获得插入成功后获得的主键然后设useGeneratedKeys为true，标识主键自增。（注意这两个属性只能在insert和update里面用。）</li>
+<li>但是插入添加了这个字段以后，返回值还是影响的条数，但是可以通过这个对象得到插入成功后的ID。</li>
+<li>在业务逻辑层，首先将除标签和分类之外，文章表里有的字段信息进行插入，如果插入成功，返回值为1，且categoryId或者tagId不为空，那么再继续插入标签和分类。</li>
+<li>创建一个关联对象的List，然后循环对其中的每一个关联对象进行插入设置。<em>在循环体里创建关联对象</em>（标签和分类类似）</li>
+</ul>
+</li>
+<li><p>然后将这个list批量插入到表里。<br>   插入文章的时候只涉及了文章表和关联表，并不涉及具体的标签表和分类表。</p>
+</li>
+<li><p>最后controller层，先把标签和分类信息渲染出来，然后接受所有前台传递过来的信息，新建一个文章对象进行接受，将这些信息注入后，调用service层写的插入文章方法，返回值为1，则成功。</p>
+<h2 id="前台JSP页面"><a href="#前台JSP页面" class="headerlink" title="前台JSP页面"></a>前台JSP页面</h2><p>首先先对标签和分类进行循环输出（El表达式）<br>然后对回调函数的输出进行简单修改。</p>
+</li>
+<li><p>写文章部分还有一个图片上传的难点功能<br>更改文章处同步虽整个资料进行提交，文章编写处，需要用异步实现，且给用户返回一个地址。<br>既然有文件上传，先写一个工具类fileuploadutils（工具类，静态成员变量，静态方法）另外注意文件上传是MultipartFile格式。</p>
+</li>
+</ul>
+<ol>
+<li><p>先用SimpleDateFormat指定日期格式。</p>
+</li>
+<li><p>先写关于个人简介处的图片上传。</p>
+</li>
+<li><p>首先是指定文件保存的路径（这里根据当前日期的年月日保存，便于查找）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String path = &quot;/static/upload/&quot; + dateFormat.format(new Date());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二步是将整个自己自定义的路径，转换成编译后运行的路径。</p>
+<blockquote>
+<p>String realPath = session.getServletContext().getRealPath(path);</p>
+</blockquote>
+</li>
+</ol>
+<p>（注意系统实际运行的路径，和自己所编写的路径，是不太一样的，这里要将图片根据运行路径存储，才能访问到。如果直接按路径保存，是访问不到的。 getRealPath()的意义。）</p>
+<ol start="3">
+<li><p>第三步是指定这个图片保存到服务器的名字。（UUID加它原来的名字）</p>
+<blockquote>
+<p>String fileName = UUID.randomUUID() + “_” + file.getOriginalFilename();</p>
+</blockquote>
+</li>
+<li><p>第四步，根据它这个realPath,和新的fileName,创建一个新的文件对象saveFile。</p>
+</li>
+<li><p>第五步判判断一下这个saveFile的父文件夹是否存在，不存在的话要创建mkdirs().</p>
+<blockquote>
+<p>if (!saveFile.getParentFile().exists()){<br>saveFile.getParentFile().mkdirs();}<br>这里不能直接判断!saveFile.exists(),例如一个目录为F:/static/upload/1.jpg<br>saveFile 仅是1.jpg，getParentFile是F:/static/upload/</p>
+</blockquote>
+</li>
+<li><p>存在，保存。</p>
+<blockquote>
+<p>file.transferTo(saveFile);</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="关于修改文章"><a href="#关于修改文章" class="headerlink" title="关于修改文章"></a>关于修改文章</h2><p>对该文章对应的标签，分类的渲染是一个有些复杂的过程，需要根据这个文章ID，得到对应的关联对象，再遍历这个关联对象表，得到每个对应的标签ID或者分类ID，再进行标签或者分类的查询。</p>
+<h2 id="关于分类目录的实现及渲染"><a href="#关于分类目录的实现及渲染" class="headerlink" title="关于分类目录的实现及渲染"></a>关于分类目录的实现及渲染</h2><ul>
+<li>关于分类，可以有父分类，且一个父分类对应多个子分类。这里使用了一张分类表，增加了一个PID的字段，规定父分类的PID为0 ，其对应子分类的PID为其父分类的ID。</li>
+<li>在service层，页面渲染时需要用到获取所有父标签和子标签的方法，添加标签涉及到插入功能，编辑功能类似于标签，还需要有个获取特定分类的方法，最后删除功能，删除子分类时正常删除即可，删除父分类，要删除它下面的所有子分类。（所以还需要在dao层加一个删除所以子标签的接口 【删除所有PID=ID的记录】）</li>
+</ul>
+<h3 id="关于后台所有文章及首页的渲染"><a href="#关于后台所有文章及首页的渲染" class="headerlink" title="关于后台所有文章及首页的渲染"></a>关于后台所有文章及首页的渲染</h3><ol>
+<li>编写接口：</li>
+</ol>
+<ul>
+<li>根据文章ID/分类ID/标签ID 均可以获得和删除关联。</li>
+<li>然后写对应的service。</li>
+<li>这里删除父类节点时，如果有子节点，就不允许删除。</li>
+<li>根据父节点获取子节点，然后如果子节点不为0，不允许删除。否则先删除关联，再删除此分类。</li>
+</ul>
+<ol start="2">
+<li>关于获得文章信息（这里用Article对象就OK）<br>写获得文章信息时，需要自定义一个接口，mapper文件处自定义查询字段。</li>
+<li>还需要再在service层实现根据文章ID获取所对应的标签/分类。<br>先创建一个关联对象的list<br>再创建一个tag对象的list<br>将关联对象循环，拿到每一个在关联表里面对应的tagid<br>根据拿到的这个tagid,去标签表里面查找，返回一个tag对象<br>将这个tag对象添加到tag对象的list里面 taglist.add(tag)</li>
+<li>怎样在前台输出每条记录呢？这里用到了POJO包装类。<br>在dto包里面建立一个包含了文章对象，标签列表，分类列表的包装类。（因为一个文章对应多个标签或者分类）</li>
+<li>在controller层，首先建立一个文章list得到所有文章，然后再建立一个包装对象的List,遍历文章的list,为每一个文章注入它所对应的标签和分类（调用service层根据文章ID获取分类和标签的方法，获得所有对应的标签和分类存到一个组里面，然后新建一个包装对象来接受，接受后将此对象添加到list里面），最后通过model，把包装对象的list渲染到前台页面。</li>
+<li>前台页面渲染时，关于时间的显示，需要按照更新时间倒序排列。<br><code>&lt;fmt:formatDate value=&quot;${articleListDto.article.createTime}&quot; 
+pattern=&quot;yyyy-MM-dd HH:mm:ss&quot; /&gt;</code></li>
+<li>删除功能，需要先删除和文章，分类的关联，然后删除此文章。</li>
+<li>修改功能，点击修改按钮，进入一个类似于写文章的页面，但是需要渲染，将本文章原有信息渲染成默认值。这里的难点还是对于标签和分类的渲染。先得到用户选择的所有标签和分类的list，然后在前台通过script代码，得到每一个标签的ID。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var tagList = new Array();</span><br><span class="line">var categoryList = new Array();</span><br><span class="line">&lt;c:forEach items=&quot;$&#123;tags&#125;&quot; var=&quot;tag&quot;&gt;</span><br><span class="line">tagList.push($&#123;tag.id&#125;);</span><br><span class="line">&lt;/c:forEach&gt;</span><br><span class="line">&lt;C:forEach items=&quot;$&#123;categories&#125;&quot; var=&quot;category&quot;&gt;</span><br><span class="line">categoryList.push($&#123;category.id&#125;);</span><br><span class="line">&lt;/C:forEach&gt;</span><br><span class="line">for (var i = 0; i &lt; tagList.length ; i++) &#123;</span><br><span class="line">$(&apos;input[value=&apos; + tagList[i] + &apos;][name=&quot;articleTagId&quot;]&apos;).attr(&quot;checked&quot;,&quot;checked&quot;);&#125;</span><br><span class="line">for (var i = 0; i &lt; categoryList.length ; i++) &#123;</span><br><span class="line">$(&apos;input[value=&apos; + categoryList[i] + &apos;][name=&quot;articleCategoryId&quot;]&apos;).attr(&quot;checked&quot;,&quot;checked&quot;);&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>3.修改方法的具体实现类似于写文章的功能。<br>   关于后台首页的渲染，需要再增加一个接口，根据时间倒序排列，得到最新的八条记录，以此降低数据库的查询压力。</p>
+<p>4.关于前台首页的渲染及分页搜索等功能的实现</p>
+<ul>
+<li><p>前台文章的显示需规定只显示前500个字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;fn:substring(articleWithBLOBsDto.articleWithBLOBs.htmlContent, 0, 500)&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关于搜索文章，可实现输入一个字符就动态搜索一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;input class=&quot;local-search-box--input&quot; placeholder=&quot;搜索文章&quot; onkeyup=&quot;searchWord(this)&quot;&gt;</span><br><span class="line">function searchWord(obj) &#123;</span><br><span class="line">    //1、获得输入框的输入的内容</span><br><span class="line">    var word = $(obj).val();</span><br><span class="line">    //2、根据输入框的内容去数据库中模糊查询---List&lt;Product&gt;</span><br><span class="line">    var content = &quot;&quot;;</span><br><span class="line">    $.post(</span><br><span class="line">        &quot;&lt;%=request.getContextPath()%&gt;/search&quot;, &#123;</span><br><span class="line">            title: word</span><br><span class="line">        &#125;,</span><br><span class="line">        function (result) &#123;</span><br><span class="line">            if (result.data.length &gt; 0) &#123;</span><br><span class="line">                for (var i = 0; i &lt; result.data.length; i++) &#123;</span><br><span class="line">                    content += &apos;&lt;div class=&quot;search-result-lis &quot; onclick=&apos; + clickFn(this) +</span><br><span class="line">                        &apos;onmouseover=&apos; + overFn(this) + &apos; onmouseout=&apos; + outFn(this) +</span><br><span class="line">                        &apos;&gt;&lt;div class=&quot;local-search__hit-item&quot;&gt;</span><br><span class="line">&lt;a href=&lt;%=request.getContextPath()%&gt;/detail/&apos; + result.data[i].id</span><br><span class="line">                             + &apos; class=&quot;search-result-title&quot;&gt;  &apos; </span><br><span class="line">+ result.data[i].title + &apos;&lt;/a&gt;&lt;/div&gt;&apos;;&#125;</span><br><span class="line">                $(&quot;#display&quot;).html(content);</span><br><span class="line">                $(&quot;#display&quot;).css(&quot;display&quot;, &quot;block&quot;);</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                $(&quot;#display&quot;).css(&quot;display&quot;, &quot;none&quot;);&#125; &#125;,</span><br><span class="line">        &quot;json&quot;</span><br><span class="line">    );</span><br><span class="line">    if (obj.value.length == 0) &#123; </span><br><span class="line">//判断输入框是否为空，如果为空则隐藏提示区域</span><br><span class="line">        console.log(&quot;111&quot;);</span><br><span class="line">        $(&quot;#display&quot;).css(&quot;display&quot;, &quot;none&quot;);</span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="关于文章的分页"><a href="#关于文章的分页" class="headerlink" title="关于文章的分页"></a>关于文章的分页</h2><p>1.首先需要创建一个类似于包装类的pagedResult</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">private List&lt;T&gt; dataList;//数据</span><br><span class="line">private long pageNo;//当前页</span><br><span class="line">private long pageSize;//条数</span><br><span class="line">private long total;//总条数</span><br><span class="line">private long pages;//总页面数目</span><br></pre></td></tr></table></figure>
+
+<p>2.其次要对Controller进行修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">List&lt;ArticleWithBLOBsDto&gt; articleWithBLOBsDtoList = </span><br><span class="line">new ArrayList&lt;ArticleWithBLOBsDto&gt;();</span><br><span class="line">PagedResult&lt;ArticleWithBLOBs&gt; pagedResult = </span><br><span class="line">articleService.getArticlePage(pageNo,2);</span><br><span class="line">for (ArticleWithBLOBs articleWithBLOBs : pagedResult.getDataList())&#123;</span><br><span class="line">    List&lt;Category&gt; categoryList = </span><br><span class="line">categoryService.getCategoryListByArticleId(articleWithBLOBs.getId());</span><br><span class="line">    List&lt;Tag&gt; tagList = </span><br><span class="line">tagService.getTagListByArticleId(articleWithBLOBs.getId());</span><br><span class="line">    ArticleWithBLOBsDto articleWithBLOBsDto = </span><br><span class="line">new ArticleWithBLOBsDto(articleWithBLOBs,tagList,categoryList);</span><br><span class="line">    articleWithBLOBsDtoList.add(articleWithBLOBsDto);</span><br><span class="line">&#125;</span><br><span class="line">model.addAttribute(&quot;pagedResult&quot;,pagedResult);</span><br><span class="line">model.addAttribute(&quot;articleWithBLOBsDtoList&quot;,articleWithBLOBsDtoList);</span><br></pre></td></tr></table></figure>
+
+<p>3.最后到前台需要有个逻辑判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:choose&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;pagedResult.pageNo == 1 &amp;&amp; pagedResult.pages == 1&#125;&quot;&gt;</span><br><span class="line">        &lt;span class=&quot;page-number current&quot;&gt;$&#123;pagedResult.pageNo&#125;&lt;/span&gt;</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;pagedResult.pageNo == 1 &amp;&amp; pagedResult.pages &gt;1 &#125;&quot;&gt;</span><br><span class="line">        &lt;span class=&quot;page-number current&quot;&gt;$&#123;pagedResult.pageNo&#125;&lt;/span&gt;</span><br><span class="line">        &lt;a class=&quot;page-number&quot; </span><br><span class="line">href=&quot;&lt;%=request.getContextPath()%&gt;/$&#123;pagedResult.pageNo+1&#125;&quot;&gt; &gt;&gt; &lt;/a&gt;</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;pagedResult.pageNo != 1 </span><br><span class="line">&amp;&amp; pagedResult.pageNo != pagedResult.pages &#125;&quot;&gt;</span><br><span class="line">        &lt;a class=&quot;page-number&quot; </span><br><span class="line">href=&quot;&lt;%=request.getContextPath()%&gt;/$&#123;pagedResult.pageNo-1&#125;&quot;&gt; &lt;&lt; &lt;/a&gt;</span><br><span class="line">        &lt;span class=&quot;page-number current&quot;&gt;$&#123;pagedResult.pageNo&#125;&lt;/span&gt;</span><br><span class="line">        &lt;a class=&quot;page-number&quot; </span><br><span class="line">href=&quot;&lt;%=request.getContextPath()%&gt;/$&#123;pagedResult.pageNo+1&#125;&quot;&gt; &gt;&gt; &lt;/a&gt;</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;pagedResult.pageNo !=1 </span><br><span class="line">&amp;&amp; pagedResult.pageNo == pagedResult.pages&#125;&quot;&gt;</span><br><span class="line">        &lt;a class=&quot;page-number&quot; </span><br><span class="line">href=&quot;&lt;%=request.getContextPath()%&gt;/$&#123;pagedResult.pageNo-1&#125;&quot;&gt; &lt;&lt; &lt;/a&gt;</span><br><span class="line">        &lt;span class=&quot;page-number current&quot;&gt;$&#123;pagedResult.pageNo&#125;&lt;/span&gt;</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">&lt;/c:choose&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关于文章详情页处标题的提取与跳转"><a href="#关于文章详情页处标题的提取与跳转" class="headerlink" title="关于文章详情页处标题的提取与跳转"></a>关于文章详情页处标题的提取与跳转</h2><p>  1.标题的提取需要引入一个Jsoup的jar包，根据h1标题提取。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> public static List&lt;Chapter&gt; handleChapeter(String htmlContent)&#123;</span><br><span class="line">    Document document = Jsoup.parse(htmlContent);</span><br><span class="line">    Elements elements = document.getElementsByTag(&quot;h1&quot;);</span><br><span class="line">    int i=1 ;</span><br><span class="line">    List&lt;Chapter&gt; chapterList = new ArrayList&lt;Chapter&gt;();</span><br><span class="line">    for (Element element : elements)&#123;</span><br><span class="line">        String chapterName = element.text();</span><br><span class="line">        String chapterId = element.attr(&quot;id&quot;);</span><br><span class="line">        Chapter chapter = new Chapter(chapterId,i,chapterName);</span><br><span class="line">        i++;</span><br><span class="line">        chapterList.add(chapter);&#125;</span><br><span class="line">    return chapterList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.在前台页面的渲染处，在侧边栏显示提取到的标题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:forEach items=&quot;$&#123;chapterList&#125;&quot; var=&quot;chapter&quot;&gt;</span><br><span class="line">   &lt;li class=&quot;toc-item toc-level-2&quot;&gt;</span><br><span class="line">&lt;a class=&quot;toc-link&quot; href=&quot;#$&#123;chapter.chapterId&#125;&quot;&gt;</span><br><span class="line">&lt;span class=&quot;toc-number&quot;&gt;$&#123;chapter.chapterNum&#125;.&lt;/span&gt;</span><br><span class="line"> &lt;span class=&quot;toc-text&quot;&gt;$&#123;chapter.chapterName&#125;&lt;/span&gt;&lt;/a&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/quilt/" rel="tag"># quilt</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/01/被子完结感言/" rel="next" title="被子完结感言">
+                <i class="fa fa-chevron-left"></i> 被子完结感言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/18/机试知识点-01/" rel="prev" title="机试知识点">
+                机试知识点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/logo.png" alt="fish">
+            
+              <p class="site-author-name" itemprop="name">fish</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cheered" target="_blank" title="github">
+                      
+                        <i class="fa fa-fw fa-github"></i>github</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于写文章页面的实现和编辑页面的渲染"><span class="nav-number">1.</span> <span class="nav-text">关于写文章页面的实现和编辑页面的渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写文章部分的实现"><span class="nav-number">1.1.</span> <span class="nav-text">写文章部分的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写文章部分难点主要是关联查询。"><span class="nav-number">1.2.</span> <span class="nav-text">写文章部分难点主要是关联查询。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前台JSP页面"><span class="nav-number">2.</span> <span class="nav-text">前台JSP页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于修改文章"><span class="nav-number">3.</span> <span class="nav-text">关于修改文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于分类目录的实现及渲染"><span class="nav-number">4.</span> <span class="nav-text">关于分类目录的实现及渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于后台所有文章及首页的渲染"><span class="nav-number">4.1.</span> <span class="nav-text">关于后台所有文章及首页的渲染</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于文章的分页"><span class="nav-number">5.</span> <span class="nav-text">关于文章的分页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于文章详情页处标题的提取与跳转"><span class="nav-number">6.</span> <span class="nav-text">关于文章详情页处标题的提取与跳转</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cheers</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

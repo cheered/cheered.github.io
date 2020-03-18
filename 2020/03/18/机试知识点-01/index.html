@@ -91,14 +91,14 @@
 <meta name="description" content="排序 - sort函数 用法：sort（排序起始地址，排序结束地址，比较函数）；  eg: sort(buf,buf+n,cmp);  头文件中的设置： 12#include&amp;lt;algorithm&amp;gt;using namespace std;  或者定义在结构体中（重载运算符） 12345678910struct E&amp;#123;    char name[101];    int age;">
 <meta name="keywords" content="机试,Markdown">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机试知识点-01">
+<meta property="og:title" content="机试知识点">
 <meta property="og:url" content="/2020/03/18/机试知识点-01/index.html">
 <meta property="og:site_name" content="Cheers">
 <meta property="og:description" content="排序 - sort函数 用法：sort（排序起始地址，排序结束地址，比较函数）；  eg: sort(buf,buf+n,cmp);  头文件中的设置： 12#include&amp;lt;algorithm&amp;gt;using namespace std;  或者定义在结构体中（重载运算符） 12345678910struct E&amp;#123;    char name[101];    int age;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-18T06:25:31.461Z">
+<meta property="og:updated_time" content="2020-03-18T09:30:24.196Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机试知识点-01">
+<meta name="twitter:title" content="机试知识点">
 <meta name="twitter:description" content="排序 - sort函数 用法：sort（排序起始地址，排序结束地址，比较函数）；  eg: sort(buf,buf+n,cmp);  头文件中的设置： 12#include&amp;lt;algorithm&amp;gt;using namespace std;  或者定义在结构体中（重载运算符） 12345678910struct E&amp;#123;    char name[101];    int age;">
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <title>机试知识点-01 | Cheers</title>
+  <title>机试知识点 | Cheers</title>
   
 
 
@@ -289,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">机试知识点-01</h1>
+          <h1 class="post-title" itemprop="name headline">机试知识点</h1>
         
 
         <div class="post-meta">
@@ -375,12 +375,52 @@
 </li>
 </ul>
 <h2 id="日期处理"><a href="#日期处理" class="headerlink" title="日期处理"></a>日期处理</h2><ul>
-<li>求两个日期的天数差，可以把原区间问题，统一到起点确定的区间问题上去。</li>
-<li>日期问题特别要注意的闰年：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x%100!=0 &amp;&amp; x%4 ==0 || x%400==0 ? 1 : 0</span><br></pre></td></tr></table></figure>
+<li><p>求两个日期的天数差，可以把原区间问题，统一到起点确定的区间问题上去。</p>
+</li>
+<li><p>起点可以是0年1月1日</p>
+</li>
+<li><p>日期问题特别要注意的闰年：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x%100!=0 &amp;&amp; x%4 ==0 || x%400==0 ? 1 : 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>年月日 可以使用三维数组（hash的思想）</p>
+</li>
+<li><p>输入时如果是“20220321”的格式 可以用scanf(“%4d%2d%2d”) 分别赋值。</p>
+</li>
+<li><p>自定义数组 dayOfMonth[13][2]  把平年闰年每个月分别有几天对应进去</p>
+</li>
+</ul>
+<h2 id="Hash应用"><a href="#Hash应用" class="headerlink" title="Hash应用"></a>Hash应用</h2><ul>
+<li>存储位置和数据本身对应起来的存储手段。</li>
+</ul>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int base=0,top=size;</span><br><span class="line">while（top&gt;=base)&#123;</span><br><span class="line">    int mid=(top+base)/2;</span><br><span class="line">    if(buf[mid]&lt;target) base=mid+1;</span><br><span class="line">    else top=mid-1;</span><br><span class="line">&#125;</span><br><span class="line">int ans=top;</span><br></pre></td></tr></table></figure>
+
+<h2 id="栈的应用（字符串匹配，运算器的实现）"><a href="#栈的应用（字符串匹配，运算器的实现）" class="headerlink" title="栈的应用（字符串匹配，运算器的实现）"></a>栈的应用（字符串匹配，运算器的实现）</h2><ul>
+<li>特点：后进先出</li>
+<li>定义：stack<int> s;</int></li>
+<li>头文件需要预处理： #include<stack></stack></li>
+<li>使用： s.push(i); 向栈内压入一个元素<pre><code>int x=s.top(); 读取栈顶元素，将其值赋予变量x + s.pop();弹出栈顶元素</code></pre><h3 id="对于运算器的实现"><a href="#对于运算器的实现" class="headerlink" title="对于运算器的实现"></a>对于运算器的实现</h3></li>
+<li>设置两个栈，一个保存运算符 一个保存数字</li>
+<li>从左到右遍历字符串，若遍历到运算符，则将其与运算符栈顶元素进行比较，若栈顶的优先级小于当前的或者此时运算符栈为空，则将该运算符压栈。</li>
+<li>若大于，弹出栈顶运算符，再从数字栈中依次弹出两个数字，得到结果后将结果压入数字栈，重复比较此时栈顶运算符与当前遍历到的运算符优先级 ，重复上述步骤。</li>
+<li>若遍历到数字，则直接压入数字栈。</li>
+<li>若运算符堆栈中仅存有两个运算符且栈顶元素为我们人为添加的标记运算符，运算结束，数字栈中唯一的数字就是我们要求的值。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int mat[][5]=&#123;</span><br><span class="line">    1,0,0,0,0,</span><br><span class="line">    1,0,0,0,0,</span><br><span class="line">    1,0,0,0,0,</span><br><span class="line">    1,1,1,0,0,</span><br><span class="line">    1,1,1,0,0,</span><br><span class="line">&#125;;  </span><br><span class="line">若mat[i][j]==1 则表示i号运算符优先级大于j号运算符 +1 -2 *3 /4</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">void getOp(bool &amp;reto,int &amp;retn,int &amp;i)&#123;</span><br><span class="line">    //获得表达式中下一个元素函数</span><br><span class="line">    //若函数运行结束时，</span><br><span class="line">    //引用变量reto为true,则表示该元素为一个运算符，编号保存在retn中</span><br><span class="line">    //否则该元素为一个数字，其值保存在引用变量retn中，</span><br><span class="line">    //引用变量i表示遍历到的字符串下标</span><br><span class="line">    if( i==0 &amp;&amp; op.empty())&#123;</span><br><span class="line">        //遍历第一个字符且运算符栈为空,人工添加编号为0的标记字符</span><br><span class="line">        reto=true;</span><br><span class="line">        retn=0;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if(str[i]==0)&#123;</span><br><span class="line">        //遍历字符串为空字符，表示字符串已经被遍历完</span><br><span class="line">        reto=true;</span><br><span class="line">        retn=0;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if(str[i]&gt;=&apos;0&apos;&amp;&amp;str[i]&lt;=&apos;9&apos;)&#123;</span><br><span class="line">        reto=false;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        reto=true;</span><br><span class="line">        if(str[i]==&apos;+&apos;)  retn=1;</span><br><span class="line">        else if(str[i]==&apos;-&apos;)  retn=2;</span><br><span class="line">        else if(str[i]==&apos;*&apos;)  retn=3;</span><br><span class="line">        else if(srr[i]==&apos;/&apos;)  retn=4;</span><br><span class="line">    &#125;</span><br><span class="line">    i+=2; //i递增，跳过该运算符和运算符后面的空格</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="根据前序和中序遍历还原树"><a href="#根据前序和中序遍历还原树" class="headerlink" title="根据前序和中序遍历还原树"></a>根据前序和中序遍历还原树</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">int ioc; //静态数组中已经分配的结点个数</span><br><span class="line">Node *creat()&#123;</span><br><span class="line">    Tree[ioc].lchlid=Tree[ioc].rchild=NULL;</span><br><span class="line">    return &amp;Tree[ioc++];</span><br><span class="line">&#125;</span><br><span class="line">Node *build(int s1,int e1,int s2,int e2)&#123;</span><br><span class="line">    Node *ret=creat();</span><br><span class="line">    ret-&gt;c=str1[s1];</span><br><span class="line">    int rootidx;</span><br><span class="line">    for(int i=s2;i&lt;=e2;i++)&#123;</span><br><span class="line">        if(str2[i]==str1[s1])&#123;</span><br><span class="line">            rootidx=i;break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(rootidx!=s2)</span><br><span class="line">        ret-&gt;lchild=build(s1+1,s1+(rootidx-s2),s2,rootidx-1);</span><br><span class="line">    if(rootidx!=e2)</span><br><span class="line">        ret-&gt;rchild=build(s1+(rootidx-s2)+1,e2,rootidx+1,e2);</span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="%运算符"></a>%运算符</h2><ul>
+<li>a%b a,b必须是整型变量 不能是浮点数，b变量必须是非零值</li>
+</ul>
+<h2 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h2><h2 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int gcd(int a,int b)&#123;</span><br><span class="line">    while(b!=0)&#123;</span><br><span class="line">        int t=a%b;</span><br><span class="line">        a=b;</span><br><span class="line">        b=t;</span><br><span class="line">    &#125;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="最小公倍数"><a href="#最小公倍数" class="headerlink" title="最小公倍数"></a>最小公倍数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int gcd(int a,int b)&#123;</span><br><span class="line">    return b!=0 ? gcd(b,a%b) : a ;</span><br><span class="line">&#125;</span><br><span class="line">a*b/gcd(a,b);</span><br></pre></td></tr></table></figure>
+
+<h2 id="素数判定"><a href="#素数判定" class="headerlink" title="素数判定"></a>素数判定</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bool judge(int x)&#123;</span><br><span class="line">    if(x&lt;=1)  return false;</span><br><span class="line">    int bound=(int)sqrt(x)+1;</span><br><span class="line">    for(int i=2;i&lt;bound;i++)&#123;</span><br><span class="line">        if(x%i==0)</span><br><span class="line">            return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二分求幂-A的B次方"><a href="#二分求幂-A的B次方" class="headerlink" title="二分求幂 A的B次方"></a>二分求幂 A的B次方</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">while(scanf(&quot;%d%d&quot;,&amp;a,&amp;b)!=EOF)&#123;</span><br><span class="line">    if(a==0&amp;&amp;b==0) break;</span><br><span class="line">    int ans=1;  //保存最终结果变量</span><br><span class="line">    while(b!=0)&#123;</span><br><span class="line">        if(b%2==1)&#123; //当前二进制位为1累乘a的2^k次至变量ans</span><br><span class="line">            ans*=a; //最终结果累乘a</span><br><span class="line">            ans%=1000;  //求其后三位数</span><br><span class="line">        &#125;</span><br><span class="line">        b/=2;</span><br><span class="line">        a*=a; //求下一位二进制位权重</span><br><span class="line">        a%=1000;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d\n&quot;,ans); //输出结果</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -412,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/01/被子完结感言/" rel="next" title="被子完结感言">
-                <i class="fa fa-chevron-left"></i> 被子完结感言
+              <a href="/2020/01/20/被子项目心得/" rel="next" title="被子项目心得">
+                <i class="fa fa-chevron-left"></i> 被子项目心得
               </a>
             
           </div>
@@ -499,7 +539,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -510,7 +550,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -521,7 +561,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -571,7 +611,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序-sort函数"><span class="nav-number">1.</span> <span class="nav-text">排序 - sort函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期处理"><span class="nav-number">2.</span> <span class="nav-text">日期处理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序-sort函数"><span class="nav-number">1.</span> <span class="nav-text">排序 - sort函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期处理"><span class="nav-number">2.</span> <span class="nav-text">日期处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash应用"><span class="nav-number">3.</span> <span class="nav-text">Hash应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分查找"><span class="nav-number">4.</span> <span class="nav-text">二分查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的应用（字符串匹配，运算器的实现）"><span class="nav-number">5.</span> <span class="nav-text">栈的应用（字符串匹配，运算器的实现）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对于运算器的实现"><span class="nav-number">5.1.</span> <span class="nav-text">对于运算器的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树"><span class="nav-number">6.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根据前序和中序遍历还原树"><span class="nav-number">6.1.</span> <span class="nav-text">根据前序和中序遍历还原树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">7.</span> <span class="nav-text">%运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进制转换"><span class="nav-number">8.</span> <span class="nav-text">进制转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大公约数"><span class="nav-number">9.</span> <span class="nav-text">最大公约数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小公倍数"><span class="nav-number">10.</span> <span class="nav-text">最小公倍数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#素数判定"><span class="nav-number">11.</span> <span class="nav-text">素数判定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分求幂-A的B次方"><span class="nav-number">12.</span> <span class="nav-text">二分求幂 A的B次方</span></a></li></ol></div>
             
 
           </div>
